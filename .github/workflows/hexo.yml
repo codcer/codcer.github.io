@@ -20,13 +20,22 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         # cache: 'npm'
+
+    - name: Cache Node Modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
         
     - name: Install dependencies and build
       env: 
@@ -38,4 +47,10 @@ jobs:
         npm install
         npm run build
         echo 'Build done'
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.DEPLOY_BLOG }}
+        publish_dir: ./public
 
