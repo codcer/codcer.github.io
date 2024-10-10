@@ -50,7 +50,7 @@ React16的fiber架构就是**基于fiber这种数据结构**实现的一种时�
 
 - 快速响应用户操作， 让用户觉得够快， 不阻塞用户操作
 
-![](./fiber1.png)
+![](/images/reactFiber/fiber1.png)
 
 #### fiber单元
 
@@ -73,7 +73,7 @@ React16的fiber架构就是**基于fiber这种数据结构**实现的一种时�
 
 在react中， 每个节点都是这样的一个fiber结构单元， 基于这种结构单元， react将整个页面组装成了一个链表结构。 即每一个fiber节点单元中， 都会有一个指针，指向下一个要跟新的单元。 如图所示
 
-![](./fiber2.png)
+![](/images/reactFiber/fiber2.png)
 
 流程解析：
 

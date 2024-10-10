@@ -45,7 +45,7 @@ server {
 }
 ```
 
-![image-20200607145042859](/Users/yueqi/Desktop/document/nginx/image-20200607145042859.png)
+![image-20200607145042859](/images/nginx/image-20200607145042859.png)
 
 #### 跨域
 
@@ -157,5 +157,3 @@ upstream zfpx {
 ```
 
 Kill -9 10826
-
-![image-20200607210927446](/Users/yueqi/Library/Application Support/typora-user-images/image-20200607210927446.png)

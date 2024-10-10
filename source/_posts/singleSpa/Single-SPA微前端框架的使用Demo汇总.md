@@ -9,7 +9,7 @@ slug: 22975f44
 date: 2018-10-31 00:00:00
 ---
 
-这些是在github能找到的single-spa微前端的Demo:
+<!-- 这些是在github能找到的single-spa微前端的Demo:
 
 ## [single-spa-examples](https://github.com/CanopyTax/single-spa-examples) 
 
@@ -51,4 +51,6 @@ angularjs的例子,也就是angularjs1.0的版本.
 
 ## [microfrontend-submodule-demo](https://github.com/Fantasy9527/microfrontend-submodule-demo) 
 
-这是在我们项目中萃取的子模块demo
+这是在我们项目中萃取的子模块demo -->
+
+demo...

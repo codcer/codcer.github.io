@@ -13,7 +13,7 @@ date: 2018-09-01 22:17:36
 
 第二, single-spa是就像一个状态机，通过给应用设置各种状态， 来管理应用
 
-![主流程](/blog/images/singleSpa/1.png)
+![主流程](/images/singleSpa/1.png)
 
 接下来， 我们来看一下single-spa框架的主流程是
 
@@ -31,7 +31,7 @@ date: 2018-09-01 22:17:36
 
 我们先来熟悉一下single-spa中应用的各种状态
 
-![各种状态](/blog/images/singleSpa/state.png)
+![各种状态](/images/singleSpa/state.png)
 
 - 默认为NOT_LOAD
 - LOAD:   开始加载应用
