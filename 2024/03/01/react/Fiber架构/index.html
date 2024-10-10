@@ -13,15 +13,15 @@
 <meta property="og:site_name" content="Liu">
 <meta property="og:description" content="React Fiber架构解读 前言记录一下自己学习react fiber架构的一个过程  由于js单线程阻塞式的特性， 导致浏览器在同一时间， 只能干一件事。所以对现在的前端框架而言，快速完成计算并且响应用户的操作成为了各大框架需要的解决的首要问题。  vue:  尽可能的把每个单元(模版&#x2F;组件)划分的足够小 ， 同时基于响应式数据的通知机制， 可以保证数据改变后， 精确的控制到每个单">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://codcer.github.io/fiber1.png">
-<meta property="og:image" content="https://codcer.github.io/fiber2.png">
+<meta property="og:image" content="https://codcer.github.io/images/reactFiber/fiber1.png">
+<meta property="og:image" content="https://codcer.github.io/images/reactFiber/fiber2.png">
 <meta property="article:published_time" content="2024-03-01T14:17:36.000Z">
-<meta property="article:modified_time" content="2024-10-09T10:45:07.382Z">
+<meta property="article:modified_time" content="2024-10-10T04:34:42.318Z">
 <meta property="article:author" content="Codcer">
 <meta property="article:tag" content="React">
 <meta property="article:tag" content="前端全栈">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://codcer.github.io/fiber1.png">
+<meta name="twitter:image" content="https://codcer.github.io/images/reactFiber/fiber1.png">
     
     
         
@@ -188,12 +188,12 @@
 <li><p>快速响应用户操作， 让用户觉得够快， 不阻塞用户操作</p>
 </li>
 </ul>
-<p><img src="/./fiber1.png"></p>
+<p><img src="/images/reactFiber/fiber1.png"></p>
 <h4 id="fiber单元"><a href="#fiber单元" class="headerlink" title="fiber单元"></a>fiber单元</h4><p>那么, fiber到底是一种什么样的数据结构呢</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">      <span class="attr">tag</span>: string,   <span class="comment">// 当前节点的名称</span></span><br><span class="line">      <span class="attr">type</span>: string,  <span class="comment">// 当前节点的类型， 标志着当前节点是一种类组件，或者函数组件， 或者是一种原生dom标签等</span></span><br><span class="line">      <span class="attr">props</span>: <span class="title class_">Object</span>, </span><br><span class="line">      <span class="attr">stateNode</span>: <span class="title class_">Object</span>, <span class="comment">// 当前节点的实例/真实dom </span></span><br><span class="line">      <span class="attr">return</span>: <span class="title class_">Fiber</span>, <span class="comment">// 当前fiber节点的父节点</span></span><br><span class="line">      <span class="attr">alternate</span>: <span class="title class_">Fiber</span>, <span class="comment">// 上一次更新的Fiber树</span></span><br><span class="line">      <span class="attr">child</span>: <span class="title class_">Fiber</span>, <span class="comment">// 指向第一个子节点</span></span><br><span class="line">      <span class="attr">siblings</span>: <span class="title class_">Fiber</span>, <span class="comment">// 指向兄弟节点</span></span><br><span class="line">      <span class="attr">effectTag</span>: <span class="variable constant_">UPDATE</span>, <span class="comment">// 副作用标示  render阶段我们会收集副作用， 增加删除 更新</span></span><br><span class="line">      <span class="attr">nextEffect</span>: <span class="literal">null</span>, <span class="comment">// effect list顺序和完成的顺序是一样的， 但是节点只放改变的fiber， 没有副作用 的节点会绕过去</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在react中， 每个节点都是这样的一个fiber结构单元， 基于这种结构单元， react将整个页面组装成了一个链表结构。 即每一个fiber节点单元中， 都会有一个指针，指向下一个要跟新的单元。 如图所示</p>
-<p><img src="/./fiber2.png"></p>
+<p><img src="/images/reactFiber/fiber2.png"></p>
 <p>流程解析：</p>
 <ul>
 <li>浏览器开始调度， 会从根节点开始处理virtual DOM(createElement返回结果)， 将其和它的Children转化为fiber单元。</li>
@@ -278,9 +278,10 @@
 </article>
 
     <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
-        </div>
+        
+        
+            <div class="vcomment"></div>
+        
     </div>
 
 
@@ -408,23 +409,42 @@
 
 <!-- search -->
 
+
+<!-- Valine Comments -->
+
+  
+<script src="/js/av-min.js"></script>
+
+  
+<script src="/js/Valine.min.js"></script>
+
+  <script type="text/javascript">
+      var notify = 'false' == true ? true : false;
+      var verify = 'false' == true ? true : false;
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+      });
+      guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "",
+          appKey: "",
+          avatar:"mm",
+          placeholder: "说点什么",
+          guest_info:guest_info,
+          pageSize:"10"
+      })
+  </script>
+
+
 <!-- Google Analytics -->
 
 <!-- Baidu Analytics -->
 
 <!-- Disqus Comments -->
-
-    <script type="text/javascript">
-        var disqus_shortname = 'cactus-1';
-
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
 
 </body>
