@@ -146,6 +146,7 @@ date: 2024-10-25 23:07:34
 ## github actions自动化
 
     ```yml
+    # _config.yml
     # 常用的配置列出
     # Site
     title: Liu
@@ -177,5 +178,61 @@ date: 2024-10-25 23:07:34
         # github tokens
         token: $DEPLOY_BLOG
     ```
+
+    ```yml
+        # 在对应的github仓库下点击`actions`按钮后，再`new workflow`
+        # .github/workflows/hexo.yml 
+        name: Deploy Hexo Blog
+
+        on:
+        push:
+            branches: [ "main" ]
+
+        jobs:
+        build:
+
+            runs-on: ubuntu-latest
+
+            strategy:
+            matrix:
+                node-version: [20.10.0]
+                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+            steps:
+            - name: Checkout code
+            uses: actions/checkout@v4
+            
+            - name: Use Node.js ${{ matrix.node-version }}
+            uses: actions/setup-node@v4
+            with:
+                node-version: ${{ matrix.node-version }}
+                # cache: 'npm'
+
+            - name: Cache Node Modules
+            uses: actions/cache@v4
+            with:
+                path: node_modules
+                key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+                restore-keys: |
+                ${{ runner.OS }}-node-
+                
+            - name: Install dependencies and build
+            env: 
+                DEPLOY_BLOG: ${{secrets.DEPLOY_BLOG}}
+            run: |
+                git config --global user.name "codcer"
+                git config --global user.email "codcer@gmail.com"
+                rm -rf public
+                npm install
+                npm run build
+                echo 'Build done'
+                
+            - name: Deploy to GitHub Pages
+            uses: peaceiris/actions-gh-pages@v4
+            with:
+                github_token: ${{ secrets.DEPLOY_BLOG }}
+                publish_dir: ./public
+    ```
+
 
 ## 访问数统计并关联至`github`；
