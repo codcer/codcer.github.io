@@ -1,8 +1,8 @@
 ---
 title: React Fiber架构解读 - 思考
-tags: [React,前端全栈]
+tags: [React,源码]
 slug: ea593f7c
-keywords: 前端全栈,React Fiber
+keywords: 源码,React Fiber
 date: 2024-03-01 22:17:36
 ---
 

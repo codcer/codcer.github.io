@@ -1,8 +1,8 @@
 ---
 title: vue是如何渲染的
-tags: [vue,源码,前端全栈]
+tags: [vue,源码]
 slug: ea599f7c
-keywords: vue,源码,前端全栈
+keywords: vue,源码
 date: 2023-09-01 22:17:36
 ---
 ## vue是如何渲染的

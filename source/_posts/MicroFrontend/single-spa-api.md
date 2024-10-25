@@ -2,7 +2,7 @@
 title: single-spa API 研读
 tags: [微前端,MicroFrontend,前端全栈]
 slug: ea799f7c
-keywords: 微前端,前端微服务化,前端自动化,解决方案,前端难题,Single,SPA
+keywords: 微前端,前端微服务化,前端自动化,解决方案,前端难题
 date: 2018-09-01 22:17:36
 ---
 
