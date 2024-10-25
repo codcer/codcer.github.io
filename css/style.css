@@ -1663,3 +1663,6 @@ code {
   animation: cursor-blink 1.25s steps(1) infinite;
   content: '';
 }
+.vpower.txt-right {
+  display: none;
+}
