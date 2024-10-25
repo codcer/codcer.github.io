@@ -16,7 +16,7 @@ date: 2024-10-25 23:07:34
 3. 匿名评论;☑︎
 4. 首页名言打字机效果；☑︎
 5. github actions自动化；☑︎
-6. 访问数统计并关联至`github`；☐
+6. 访问数统计并关联至`github`；☑︎
 
 ## 博客 迁移至hexo
    
@@ -235,4 +235,29 @@ date: 2024-10-25 23:07:34
     ```
 
 
-## 访问数统计并关联至`github`；
+## 访问数统计
+
+    ```html
+        <!-- //themes/cactus-dark/layout/_partial/scripts.ejs 阅读量计数 -->
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    ```
+
+    ```html
+        <!-- //themes/cactus-dark/layout/index.ejs 首页计数 -->
+        <span>
+            <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv">0</span>
+            </span>
+        </span>
+    ```
+
+    ```html
+        <!-- //themes/cactus-dark/layout/post.ejs 文章阅读数 -->
+        <div class="article-tag">
+            <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+                <span id="busuanzi_value_page_pv">0</span>
+            </span>
+        </div>
+    ```

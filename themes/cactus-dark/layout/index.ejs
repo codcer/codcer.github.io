@@ -5,9 +5,15 @@
   <div class="description typed-coding">
     <span class="typed prompt"></span>
   </div>
+  <span>
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_container_site_pv">
+      <span id="busuanzi_value_site_pv">0</span>
+    </span>
+  </span>
   <% if (theme.social_links) { %>
-    <p>
-      <%= __('index.find_me_on') %>
+    <p style="display: inline">
+      | <%= __('index.find_me_on') %>
       <% var nb_links = Object.keys(theme.social_links).length %>
       <% var i = 0 %>
       <% for(var link in theme.social_links) { %>
