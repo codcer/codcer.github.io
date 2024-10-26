@@ -1,6 +1,6 @@
 ---
 title: 模块联邦 远程载入
-tags: [微前端,MicroFrontend,前端全栈]
+tags: [微前端,MicroFrontend]
 slug: ea539f7c
 keywords: 微前端,前端微服务化,前端自动化,解决方案,前端难题,Single,SPA
 date: 2024-06-15 19:25:25

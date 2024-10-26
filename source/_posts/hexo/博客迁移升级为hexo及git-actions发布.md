@@ -152,7 +152,7 @@ date: 2024-10-25 23:07:34
     title: Liu
     subtitle: Hello Liu | 前端全栈! - WEB FULL STACK! BANG!! BANG!!!
     description: '前端全栈. 持续学习,持续写博客. 此生理想、近期计划、今日功课。'
-    keywords: [前端全栈,WEB FULL STACK,前端,前端博客,web前端博客,前端模块化,前端工程化,前端数据监控,性能优化,网页制作,前端,js,html5,css,踩坑小报告,微前端,树莓派,前端开发,区块链,网络,Mongodb,Vue.js,Angular.js,node.js]
+    keywords: [WEB FULL STACK,前端,前端博客,web前端博客,前端模块化,前端工程化,前端数据监控,性能优化,网页制作,前端,js,html5,css,踩坑小报告,微前端,树莓派,前端开发,区块链,网络,Mongodb,Vue.js,Angular.js,node.js]
     author: Codcer
     language: zh-CN
     timezone: Asia/Shanghai
