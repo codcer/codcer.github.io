@@ -14,7 +14,7 @@
 <meta property="og:description" content="什么是虚拟任务栈1. 具备的进入页面动画、退出页面动画、进入页面读取数据渲染视图、返回之前页面无需重新读取数据渲染视图等特性 2. 特点:    1. 虚拟任务栈可以模拟 原生应用中 Task 栈的效果;    2. 进出场页面动画;    3. 进入页面读取数据渲染视图;    4. 返回之前的页面 无需重新拉取数据渲染视图,而是缓存  该怎么弄, 才可达到以上效果1. 我们需要监听到路由的跳转">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-01T14:17:36.000Z">
-<meta property="article:modified_time" content="2024-10-25T16:51:18.513Z">
+<meta property="article:modified_time" content="2024-10-25T16:28:17.803Z">
 <meta property="article:author" content="Codcer">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="源码">
@@ -143,6 +143,13 @@
     </div>
 
 
+      <!-- 文章阅读数 -->
+      <div class="article-tag">
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_container_page_pv">
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+      </div>
       
 
       
@@ -337,6 +344,9 @@
       })
   </script>
 
+
+<!-- 阅读量计数 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <!-- Google Analytics -->
 
