@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="uni-app UI 不支持vue3的窘境uni-app UI 社区上一直没有比较好的兼容vue3语法的ui库，经过调研后，发现有个个人版的vk-uview-ui这个库，因此基于此，我们下沉的tui来适配vue3风格【自己动手丰衣足食 🤒】。 组件库打包与发布如果组件库还是按照原来的打包与发布模式下.在uni-app中下，不能完全行，受制于uni-cli在微信处理的时候，走的是静态编译，导致了我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.uni-app之tui支持vue3写法">
-<meta property="og:url" content="https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/index.html">
+<meta property="og:title" content="uni-app之tui支持vue3写法">
+<meta property="og:url" content="https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/index.html">
 <meta property="og:site_name" content="Liu">
 <meta property="og:description" content="uni-app UI 不支持vue3的窘境uni-app UI 社区上一直没有比较好的兼容vue3语法的ui库，经过调研后，发现有个个人版的vk-uview-ui这个库，因此基于此，我们下沉的tui来适配vue3风格【自己动手丰衣足食 🤒】。 组件库打包与发布如果组件库还是按照原来的打包与发布模式下.在uni-app中下，不能完全行，受制于uni-cli在微信处理的时候，走的是静态编译，导致了我">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-26T09:20:36.000Z">
-<meta property="article:modified_time" content="2024-10-27T10:39:28.000Z">
+<meta property="article:modified_time" content="2024-10-27T10:41:35.476Z">
 <meta property="article:author" content="Codcer">
-<meta property="article:tag" content="跨端开发">
 <meta property="article:tag" content="uni-app">
+<meta property="article:tag" content="跨端开发">
 <meta name="twitter:card" content="summary">
     
     
@@ -40,7 +40,7 @@
     <!-- title -->
     <title>
        
-        6.uni-app之tui支持vue3写法 | 前端全栈! - WEB BANG! BANG!! BANG!!!
+        uni-app之tui支持vue3写法 | 前端全栈! - WEB BANG! BANG!! BANG!!!
       
     </title>
     <!-- styles -->
@@ -82,10 +82,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2024/10/26/uni-app/%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2024/10/26/uni-app/5.uni-app%E4%B9%8B%E5%A4%9A%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86(%E4%B8%8B)/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2024/10/26/uni-app/uni-app%E4%B9%8B%E5%A4%9A%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86(%E4%B8%8B)/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -98,17 +98,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&text=6.uni-app之tui支持vue3写法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&is_video=false&description=6.uni-app之tui支持vue3写法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=6.uni-app之tui支持vue3写法&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&name=6.uni-app之tui支持vue3写法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&t=6.uni-app之tui支持vue3写法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&text=uni-app之tui支持vue3写法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&is_video=false&description=uni-app之tui支持vue3写法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uni-app之tui支持vue3写法&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&name=uni-app之tui支持vue3写法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&t=uni-app之tui支持vue3写法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -125,7 +125,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        6.uni-app之tui支持vue3写法
+        uni-app之tui支持vue3写法
     </h1>
 
 
@@ -206,17 +206,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&text=6.uni-app之tui支持vue3写法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&is_video=false&description=6.uni-app之tui支持vue3写法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=6.uni-app之tui支持vue3写法&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&name=6.uni-app之tui支持vue3写法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&t=6.uni-app之tui支持vue3写法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&text=uni-app之tui支持vue3写法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&is_video=false&description=uni-app之tui支持vue3写法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=uni-app之tui支持vue3写法&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=uni-app之tui支持vue3写法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&name=uni-app之tui支持vue3写法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&t=uni-app之tui支持vue3写法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
