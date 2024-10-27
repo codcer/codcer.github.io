@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="目前我们通过uni-app触达的端已经有:  微信小程序 app H5  为了快速的让业务可以触达到各端,我们每一个业务模块都是独立的. 他们根据业务需要,分别兼容到不同的端,等到构建的时候再将其进行组装成为一个完整的项目. 为了满足以上需要,并且可以灵活开发.所以每一个业务模块都是可以独立开发,独立运行的,可以不依赖主工程. 目前来说项目之间的关系已经比较类似微前端了. 因为大部分端都不能做到热">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.uni-app之依赖管理">
+<meta property="og:url" content="https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Liu">
+<meta property="og:description" content="目前我们通过uni-app触达的端已经有:  微信小程序 app H5  为了快速的让业务可以触达到各端,我们每一个业务模块都是独立的. 他们根据业务需要,分别兼容到不同的端,等到构建的时候再将其进行组装成为一个完整的项目. 为了满足以上需要,并且可以灵活开发.所以每一个业务模块都是可以独立开发,独立运行的,可以不依赖主工程. 目前来说项目之间的关系已经比较类似微前端了. 因为大部分端都不能做到热">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-26T09:17:36.000Z">
+<meta property="article:modified_time" content="2024-10-27T10:39:28.000Z">
+<meta property="article:author" content="Codcer">
+<meta property="article:tag" content="跨端开发">
+<meta property="article:tag" content="uni-app">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>
+       
+        2.uni-app之依赖管理 | 前端全栈! - WEB BANG! BANG!! BANG!!!
+      
+    </title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2024/10/26/uni-app/1.uni-app%E4%B9%8B%E6%80%9D%E8%80%83%E4%B8%8E%E4%B8%BE%E6%8E%AA/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2024/10/25/hexo/%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E5%8D%87%E7%BA%A7%E4%B8%BAhexo%E5%8F%8Agit-actions%E5%8F%91%E5%B8%83/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&text=2.uni-app之依赖管理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&is_video=false&description=2.uni-app之依赖管理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2.uni-app之依赖管理&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&name=2.uni-app之依赖管理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&t=2.uni-app之依赖管理"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">所有项目依赖统一管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%BE%9D%E8%B5%96%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">核心依赖集中管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E6%A0%B8%E5%BF%83%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">非核心依赖版本管理问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E5%88%AB%E9%A1%B9%E7%9B%AE%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">个别项目特殊处理办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E4%BE%9D%E8%B5%96%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">第三方依赖稳定性问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E5%AE%9ANPM%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC"><span class="toc-number">3.</span> <span class="toc-text">锁定NPM依赖版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9npm%E5%8C%85%E6%9C%89bug%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">4.</span> <span class="toc-text">第三方npm包有bug如何解决?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E5%8E%9F%E6%9C%89npm%E5%8C%85%E7%89%88%E6%9C%AC"><span class="toc-number">4.1.</span> <span class="toc-text">升级原有npm包版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%8E%89bug%E5%8F%91%E5%B8%83%E5%9C%A8%E5%85%AC%E5%8F%B8%E7%A7%81%E6%9C%89%E6%BA%90"><span class="toc-number">4.2.</span> <span class="toc-text">修掉bug发布在公司私有源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%8A%80%E5%B7%A7-npmrc%E9%85%8D%E7%BD%AE"><span class="toc-number">4.3.</span> <span class="toc-text">小技巧: .npmrc配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%8F%98%E6%9B%B4%E5%90%8E%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83"><span class="toc-number">5.</span> <span class="toc-text">版本变更后的开发环境和生产环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85%E5%8A%A0%E9%80%9F"><span class="toc-number">6.</span> <span class="toc-text">关于依赖安装加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%BE%E5%B7%B4"><span class="toc-number">7.</span> <span class="toc-text">尾巴</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        2.uni-app之依赖管理
+    </h1>
+
+
+
+    <div class="meta">
+      <!-- <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Liu</span>
+      </span> -->
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-26T09:17:36.000Z" itemprop="datePublished">2024-10-26</time>
+        
+      
+    </div>
+
+
+      <!-- 文章阅读数 -->
+      <div class="article-tag">
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_container_page_pv">
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+      </div>
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/uni-app/" rel="tag">uni-app</a>, <a class="tag-link-link" href="/tags/%E8%B7%A8%E7%AB%AF%E5%BC%80%E5%8F%91/" rel="tag">跨端开发</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>目前我们通过uni-app触达的端已经有:</p>
+<ul>
+<li>微信小程序</li>
+<li>app</li>
+<li>H5</li>
+</ul>
+<p>为了快速的让业务可以触达到各端,我们每一个业务模块都是独立的.</p>
+<p>他们根据业务需要,分别兼容到不同的端,等到构建的时候再将其进行组装成为一个完整的项目.</p>
+<p>为了满足以上需要,并且可以灵活开发.所以每一个业务模块都是可以独立开发,独立运行的,可以不依赖主工程.</p>
+<p>目前来说项目之间的关系已经比较类似<code>微前端</code>了.</p>
+<p>因为大部分端都不能做到热更新,所以相对微前端而言小程序们做不到<code>独立部署</code>.</p>
+<blockquote>
+<p>关于uni-app -&gt; app部分,后面会有专门的文章跟大家介绍我们是怎么玩的.</p>
+</blockquote>
+<p>今天就跟大家介绍一下,多业务,多团队,多端的代码管理中我们遇到的第一个问题: <code>依赖管理问题</code></p>
+<h2 id="所有项目依赖统一管理"><a href="#所有项目依赖统一管理" class="headerlink" title="所有项目依赖统一管理"></a>所有项目依赖统一管理</h2><p>因为业务模块很多,我们项目工程的差异必须保持高度统一,其中包括依赖.</p>
+<h3 id="核心依赖集中管理"><a href="#核心依赖集中管理" class="headerlink" title="核心依赖集中管理"></a>核心依赖集中管理</h3><p>现在我们团队开发的跨端模块已经有几十个.为了方便管理,</p>
+<p>我将所有的依赖封装成了一个<code>npm包</code>,里面没有任何的业务代码,只有稳定的依赖.</p>
+<p>所有的项目都会引入这个核心的依赖,以保证所有项目可以稳定运行.</p>
+<h3 id="非核心依赖版本管理问题"><a href="#非核心依赖版本管理问题" class="headerlink" title="非核心依赖版本管理问题"></a>非核心依赖版本管理问题</h3><p>如果是非核心依赖,我们将使用我们自研的<code>cli</code>工具强行修改package.json里面的版本号.</p>
+<p>持续集成的过程中,所有的跨端项目都会通过这个cli工具在<code>npm install</code>执行之前修改我们的项目配置.其中就包括了我们的依赖.</p>
+<p>这样所有的跨端项目都会更新到最新的依赖配置.</p>
+<h3 id="个别项目特殊处理办法"><a href="#个别项目特殊处理办法" class="headerlink" title="个别项目特殊处理办法"></a>个别项目特殊处理办法</h3><p>所有项目的依赖全部统一之后,总会有一些特殊原因个别项目的依赖会有一点区别.</p>
+<p>这里就必须要提到<code>package.json</code>的 <code>resolutions</code>属性.</p>
+<p><code>resolutions</code> 字段用于解析选择性版本，可以通过此功能自定义依赖版本。 </p>
+<p>这样npm就会将多版本共存的版本,强行指定某一版本,满足个别项目的特定需求.</p>
+<p>如果我要所有的 <code>PB</code> 强行指定2.0</p>
+<p>使用方法如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json </span></span><br><span class="line"><span class="comment">// 这样PB这个依赖库,就被强行指定版本了</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;resolutions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;PB&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>resolutions的解释,你可以在这里查看更多:</p>
+<p><a target="_blank" rel="noopener" href="https://classic.yarnpkg.com/zh-Hans/docs/selective-version-resolutions">https://classic.yarnpkg.com/zh-Hans/docs/selective-version-resolutions</a></p>
+<p>当然你也可以使用这个工具,将依赖强制指定版本:</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/npm-force-resolutions">https://www.npmjs.com/package/npm-force-resolutions</a></p>
+<h2 id="第三方依赖稳定性问题"><a href="#第三方依赖稳定性问题" class="headerlink" title="第三方依赖稳定性问题"></a>第三方依赖稳定性问题</h2><p>我们在开发周期比较长的前端项目的时候,必然会遇到依赖管理的问题.</p>
+<p>我们在开发项目的时候,我们用了大量的三方库.这些三方的依赖库时不时的会更新自己的代码.</p>
+<p>第三方依赖库的代码更新会很容易造成代码运行的不稳定,</p>
+<p>比如昨天还跑的好好的项目,另一位刚刚接手的同学重新安装依赖之后项目就完全跑不起来了.</p>
+<p>或者自己机器跑的好好的代码,扔到打包机上重新打包之后就完全跑不起来.</p>
+<p>因为三方依赖库用的太多,很多时候并不能很快速的定位到项目为什么跑不起来.</p>
+<p>一个依赖更新的问题可能会定位一个大半天才能找到罪魁祸首(曾经的我为了这种事情浪费了大量的青春).</p>
+<h2 id="锁定NPM依赖版本"><a href="#锁定NPM依赖版本" class="headerlink" title="锁定NPM依赖版本"></a>锁定NPM依赖版本</h2><p>对于那些你不熟悉,或者不能保证稳定的三方npm包,我这边的做法是<code>直接锁定版本号</code>.</p>
+<p>这件事情做的越早越好,不要盲目相信三方npm越更新性能越好.</p>
+<p>他会时不时的让你痛一下.让你浪费大量的时间去寻找到底是谁影响了你的代码正常运行.</p>
+<h2 id="第三方npm包有bug如何解决"><a href="#第三方npm包有bug如何解决" class="headerlink" title="第三方npm包有bug如何解决?"></a>第三方npm包有bug如何解决?</h2><h3 id="升级原有npm包版本"><a href="#升级原有npm包版本" class="headerlink" title="升级原有npm包版本"></a>升级原有npm包版本</h3><p>如果你发现了你的第三方npm有bug,建议不要盲目的升级版本.</p>
+<p>第一步你需要先看这个npm包的 <code>changelog</code>,如果有明确修复过这个bug,</p>
+<p>才会建议你升级.但是不能保证升级之后可能会带来其他bug.</p>
+<h3 id="修掉bug发布在公司私有源"><a href="#修掉bug发布在公司私有源" class="headerlink" title="修掉bug发布在公司私有源"></a>修掉bug发布在公司私有源</h3><p>但是我还是比较建议,在原来版本的npm包上修掉这个bug,并且修改npm包名为公司内部包,发布到公司私有npm源上. </p>
+<p>如果因为npm版本的改动,导致项目不稳定,也可以缩小排查范围,快速定位到是哪一个npm库导致的问题.</p>
+<p>例如: mobx &#x3D;&gt; @公司源&#x2F;mobx</p>
+<h3 id="小技巧-npmrc配置"><a href="#小技巧-npmrc配置" class="headerlink" title="小技巧: .npmrc配置"></a>小技巧: .npmrc配置</h3><p>如果你有发布到公司私有源的三方npm包,</p>
+<p>你可以尝试修改.npmrc文件使用npm名的作用域直接指向公司私有源</p>
+<p>例如:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@公司源:registry=http://npm.xxx.com</span><br><span class="line">@coral-appjs:registry=http://npm.xxx.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="版本变更后的开发环境和生产环境"><a href="#版本变更后的开发环境和生产环境" class="headerlink" title="版本变更后的开发环境和生产环境"></a>版本变更后的开发环境和生产环境</h2><p>如果你目前版本变更的比较频繁的话,</p>
+<p>很容易产生版本变更后两个环境的不一致,很有可能会产生一些微妙的问题.</p>
+<p>在这里我还是建议: 每次升级后还是完全的删除 <code>node_modules</code> 目录,重新安装依赖.特别是在打包机上.</p>
+<p>安装依赖的实践,相对你排查莫名其妙的问题的实践,其实是<code>赚的</code>. </p>
+<p>当然,这只是在版本变更比较频繁的情况下,如果开始组件稳定,</p>
+<p>打包机上还是建议开始缓存依赖,这样可以减少大量日常开发时间.</p>
+<h2 id="关于依赖安装加速"><a href="#关于依赖安装加速" class="headerlink" title="关于依赖安装加速"></a>关于依赖安装加速</h2><p>除了大家都知道的npm换源之外,npm依赖的执行文件下载也会拖慢你的依赖安装速度.</p>
+<p>以下是我们团队使用的<code>.npmrc</code>配置,对于一些npm依赖的执行文件,<br>可以使用该配置加速你的npm构建速度.</p>
+<p>你也可以安装 <code>mirror-config-china</code> 来加速你的依赖安装速度</p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mirror-config-china">https://www.npmjs.com/package/mirror-config-china</a> </p>
+<blockquote>
+<p>.npmrc文件的位置在你的home目录下,你也可以在项目根目录创建该文件.</p>
+</blockquote>
+<p>这是我们常用的<code>.npmrc</code>配置,我们已经将它集成到我们的cli工具中,每当cli执行都会更新其配置.</p>
+<p>保证每一个小伙伴的开发机以及打包机都是一致的.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">chromedriver-cdnurl=https://npm.taobao.org/mirrors/chromedriver</span><br><span class="line">couchbase-binary-host-mirror=https://npm.taobao.org/mirrors/couchbase/v&#123;version&#125;</span><br><span class="line">debug-binary-host-mirror=https://npm.taobao.org/mirrors/node-inspector</span><br><span class="line">electron-mirror=https://npm.taobao.org/mirrors/electron/</span><br><span class="line">flow-bin-binary-host-mirror=https://npm.taobao.org/mirrors/flow/v</span><br><span class="line">fse-binary-host-mirror=https://npm.taobao.org/mirrors/fsevents</span><br><span class="line">fuse-bindings-binary-host-mirror=https://npm.taobao.org/mirrors/fuse-bindings/v&#123;version&#125;</span><br><span class="line">git4win-mirror=https://npm.taobao.org/mirrors/git-for-windows</span><br><span class="line">gl-binary-host-mirror=https://npm.taobao.org/mirrors/gl/v&#123;version&#125;</span><br><span class="line">grpc-node-binary-host-mirror=https://npm.taobao.org/mirrors</span><br><span class="line">hackrf-binary-host-mirror=https://npm.taobao.org/mirrors/hackrf/v&#123;version&#125;</span><br><span class="line">leveldown-binary-host-mirror=https://npm.taobao.org/mirrors/leveldown/v&#123;version&#125;</span><br><span class="line">leveldown-hyper-binary-host-mirror=https://npm.taobao.org/mirrors/leveldown-hyper/v&#123;version&#125;</span><br><span class="line">mknod-binary-host-mirror=https://npm.taobao.org/mirrors/mknod/v&#123;version&#125;</span><br><span class="line">node-sqlite3-binary-host-mirror=https://npm.taobao.org/mirrors</span><br><span class="line">node-tk5-binary-host-mirror=https://npm.taobao.org/mirrors/node-tk5/v&#123;version&#125;</span><br><span class="line">nodegit-binary-host-mirror=https://npm.taobao.org/mirrors/nodegit/v&#123;version&#125;/</span><br><span class="line">operadriver-cdnurl=https://npm.taobao.org/mirrors/operadriver</span><br><span class="line">phantomjs-cdnurl=https://npm.taobao.org/mirrors/phantomjs</span><br><span class="line">profiler-binary-host-mirror=https://npm.taobao.org/mirrors/node-inspector/</span><br><span class="line">puppeteer-download-host=https://npm.taobao.org/mirrors</span><br><span class="line">python-mirror=https://npm.taobao.org/mirrors/python</span><br><span class="line">rabin-binary-host-mirror=https://npm.taobao.org/mirrors/rabin/v&#123;version&#125;</span><br><span class="line">sass-binary-site=https://npm.taobao.org/mirrors/node-sass</span><br><span class="line">sodium-prebuilt-binary-host-mirror=https://npm.taobao.org/mirrors/sodium-prebuilt/v&#123;version&#125;</span><br><span class="line">sqlite3-binary-site=https://npm.taobao.org/mirrors/sqlite3</span><br><span class="line">utf-8-validate-binary-host-mirror=https://npm.taobao.org/mirrors/utf-8-validate/v&#123;version&#125;</span><br><span class="line">utp-native-binary-host-mirror=https://npm.taobao.org/mirrors/utp-native/v&#123;version&#125;</span><br><span class="line">zmq-prebuilt-binary-host-mirror=https://npm.taobao.org/mirrors/zmq-prebuilt/v&#123;version&#125;</span><br><span class="line">sentrycli_cdnurl=https://npm.taobao.org/mirrors/sentry-cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h2><p>今天给大家介绍了我们的依赖如何管理.</p>
+<p>因为我们可以统一我们所有项目细节,因此在开发过程中减少了太多的不必要麻烦.</p>
+<p>这也是我们方便管理项目最为重要的步骤之一.</p>
+<p>如果大家对我们<code>cli</code>实现了哪些功能感兴趣,我可以单独出一篇聊一聊~</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        
+        
+            <div class="vcomment"></div>
+        
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">所有项目依赖统一管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%BE%9D%E8%B5%96%E9%9B%86%E4%B8%AD%E7%AE%A1%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">核心依赖集中管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E6%A0%B8%E5%BF%83%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">非核心依赖版本管理问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E5%88%AB%E9%A1%B9%E7%9B%AE%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">个别项目特殊处理办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E4%BE%9D%E8%B5%96%E7%A8%B3%E5%AE%9A%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">第三方依赖稳定性问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E5%AE%9ANPM%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC"><span class="toc-number">3.</span> <span class="toc-text">锁定NPM依赖版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9npm%E5%8C%85%E6%9C%89bug%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">4.</span> <span class="toc-text">第三方npm包有bug如何解决?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E5%8E%9F%E6%9C%89npm%E5%8C%85%E7%89%88%E6%9C%AC"><span class="toc-number">4.1.</span> <span class="toc-text">升级原有npm包版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%8E%89bug%E5%8F%91%E5%B8%83%E5%9C%A8%E5%85%AC%E5%8F%B8%E7%A7%81%E6%9C%89%E6%BA%90"><span class="toc-number">4.2.</span> <span class="toc-text">修掉bug发布在公司私有源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%8A%80%E5%B7%A7-npmrc%E9%85%8D%E7%BD%AE"><span class="toc-number">4.3.</span> <span class="toc-text">小技巧: .npmrc配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%8F%98%E6%9B%B4%E5%90%8E%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83"><span class="toc-number">5.</span> <span class="toc-text">版本变更后的开发环境和生产环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85%E5%8A%A0%E9%80%9F"><span class="toc-number">6.</span> <span class="toc-text">关于依赖安装加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%BE%E5%B7%B4"><span class="toc-number">7.</span> <span class="toc-text">尾巴</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&text=2.uni-app之依赖管理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&is_video=false&description=2.uni-app之依赖管理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2.uni-app之依赖管理&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&title=2.uni-app之依赖管理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&name=2.uni-app之依赖管理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/2.uni-app%E4%B9%8B%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/&t=2.uni-app之依赖管理"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    Codcer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+
+<!-- Valine Comments -->
+
+  
+<script src="/js/av-min.js"></script>
+
+  
+<script src="/js/Valine.min.js"></script>
+
+  <script type="text/javascript">
+      var notify = 'false' == true ? true : false;
+      var verify = 'false' == true ? true : false;
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+      });
+      guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "nRach5vXbSulMeiRHgqCbUCT-gzGzoHsz",
+          appKey: "CK2vLdlylRq40EiH2lu4lU2H",
+          avatar:"mm",
+          placeholder: "说点什么",
+          guest_info:guest_info,
+          pageSize:"10"
+      })
+  </script>
+
+
+<!-- 阅读量计数 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="uni-app UI 不支持vue3的窘境uni-app UI 社区上一直没有比较好的兼容vue3语法的ui库，经过调研后，发现有个个人版的vk-uview-ui这个库，因此基于此，我们下沉的tui来适配vue3风格【自己动手丰衣足食 🤒】。 组件库打包与发布如果组件库还是按照原来的打包与发布模式下.在uni-app中下，不能完全行，受制于uni-cli在微信处理的时候，走的是静态编译，导致了我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6.uni-app之tui支持vue3写法">
+<meta property="og:url" content="https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/index.html">
+<meta property="og:site_name" content="Liu">
+<meta property="og:description" content="uni-app UI 不支持vue3的窘境uni-app UI 社区上一直没有比较好的兼容vue3语法的ui库，经过调研后，发现有个个人版的vk-uview-ui这个库，因此基于此，我们下沉的tui来适配vue3风格【自己动手丰衣足食 🤒】。 组件库打包与发布如果组件库还是按照原来的打包与发布模式下.在uni-app中下，不能完全行，受制于uni-cli在微信处理的时候，走的是静态编译，导致了我">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-26T09:20:36.000Z">
+<meta property="article:modified_time" content="2024-10-27T10:39:28.000Z">
+<meta property="article:author" content="Codcer">
+<meta property="article:tag" content="跨端开发">
+<meta property="article:tag" content="uni-app">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>
+       
+        6.uni-app之tui支持vue3写法 | 前端全栈! - WEB BANG! BANG!! BANG!!!
+      
+    </title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2024/10/26/uni-app/5.uni-app%E4%B9%8B%E5%A4%9A%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86(%E4%B8%8B)/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&text=6.uni-app之tui支持vue3写法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&is_video=false&description=6.uni-app之tui支持vue3写法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=6.uni-app之tui支持vue3写法&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&name=6.uni-app之tui支持vue3写法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&t=6.uni-app之tui支持vue3写法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#uni-app-UI-%E4%B8%8D%E6%94%AF%E6%8C%81vue3%E7%9A%84%E7%AA%98%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">uni-app UI 不支持vue3的窘境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%BA%93%E6%89%93%E5%8C%85%E4%B8%8E%E5%8F%91%E5%B8%83"><span class="toc-number">1.1.</span> <span class="toc-text">组件库打包与发布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%BF%99%E6%A0%B7%E7%9A%84%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">如何使用这样的组件库</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        6.uni-app之tui支持vue3写法
+    </h1>
+
+
+
+    <div class="meta">
+      <!-- <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Liu</span>
+      </span> -->
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-26T09:20:36.000Z" itemprop="datePublished">2024-10-26</time>
+        
+      
+    </div>
+
+
+      <!-- 文章阅读数 -->
+      <div class="article-tag">
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_container_page_pv">
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+      </div>
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/uni-app/" rel="tag">uni-app</a>, <a class="tag-link-link" href="/tags/%E8%B7%A8%E7%AB%AF%E5%BC%80%E5%8F%91/" rel="tag">跨端开发</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="uni-app-UI-不支持vue3的窘境"><a href="#uni-app-UI-不支持vue3的窘境" class="headerlink" title="uni-app UI 不支持vue3的窘境"></a>uni-app UI 不支持vue3的窘境</h2><p>uni-app UI 社区上一直没有比较好的兼容vue3语法的ui库，经过调研后，发现有个个人版的<code>vk-uview-ui</code>这个库，<br>因此基于此，我们下沉的tui来适配vue3风格【自己动手丰衣足食 🤒】。</p>
+<h3 id="组件库打包与发布"><a href="#组件库打包与发布" class="headerlink" title="组件库打包与发布"></a>组件库打包与发布</h3><p>如果组件库还是按照原来的打包与发布模式下.在uni-app中下，不能完全行，受制于uni-cli在微信处理的时候，走的是静态<br>编译，导致了我们tui库采用自定义打包和发布模式。 </p>
+<p>组件库入口下仅对全局的api和方法，进行初始化。<br>另外所有的组件都放在了components目录下，不对这些组件暴露至入口js下，这样做可以解决，vite模式下，首屏大量的请求<br>的问题。</p>
+<p>最后，经过我们自定义处理后，就可以愉快的发布npm包至私服上。</p>
+<h2 id="如何使用这样的组件库"><a href="#如何使用这样的组件库" class="headerlink" title="如何使用这样的组件库"></a>如何使用这样的组件库</h2><p>在业务开发的时候,代码只要直接引入这个npm包就好了；另外在uni的easy-com方式和tsconfig.json下配置这个库的类型生命，<br>按需引入即可和类型提示就也有。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        
+        
+            <div class="vcomment"></div>
+        
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#uni-app-UI-%E4%B8%8D%E6%94%AF%E6%8C%81vue3%E7%9A%84%E7%AA%98%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">uni-app UI 不支持vue3的窘境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%BA%93%E6%89%93%E5%8C%85%E4%B8%8E%E5%8F%91%E5%B8%83"><span class="toc-number">1.1.</span> <span class="toc-text">组件库打包与发布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%BF%99%E6%A0%B7%E7%9A%84%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">如何使用这样的组件库</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&text=6.uni-app之tui支持vue3写法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&is_video=false&description=6.uni-app之tui支持vue3写法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=6.uni-app之tui支持vue3写法&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&title=6.uni-app之tui支持vue3写法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&name=6.uni-app之tui支持vue3写法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/&t=6.uni-app之tui支持vue3写法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    Codcer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+
+<!-- Valine Comments -->
+
+  
+<script src="/js/av-min.js"></script>
+
+  
+<script src="/js/Valine.min.js"></script>
+
+  <script type="text/javascript">
+      var notify = 'false' == true ? true : false;
+      var verify = 'false' == true ? true : false;
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+      });
+      guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "nRach5vXbSulMeiRHgqCbUCT-gzGzoHsz",
+          appKey: "CK2vLdlylRq40EiH2lu4lU2H",
+          avatar:"mm",
+          placeholder: "说点什么",
+          guest_info:guest_info,
+          pageSize:"10"
+      })
+  </script>
+
+
+<!-- 阅读量计数 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

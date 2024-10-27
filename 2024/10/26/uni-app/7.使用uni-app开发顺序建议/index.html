@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="以最小成本开发uni-app各端现在公司里面的所有小程序,快应用,app等等都在使用uni-app在开发. 如果只兼容一端的话,使用uni-app开发,没有任何问题. 但是又想一次开发,各端正常运行的话,在很多的细节上是要花一点心思的. 每一端有每一端的难. 开发难度排序快应用  &gt; app &gt; 微信小程序 &gt; H5 【兼容性从左至右】 关于快应用在开发过程中,如果有涉及到快应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.使用uni-app开发顺序建议">
+<meta property="og:url" content="https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Liu">
+<meta property="og:description" content="以最小成本开发uni-app各端现在公司里面的所有小程序,快应用,app等等都在使用uni-app在开发. 如果只兼容一端的话,使用uni-app开发,没有任何问题. 但是又想一次开发,各端正常运行的话,在很多的细节上是要花一点心思的. 每一端有每一端的难. 开发难度排序快应用  &gt; app &gt; 微信小程序 &gt; H5 【兼容性从左至右】 关于快应用在开发过程中,如果有涉及到快应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-26T09:21:36.000Z">
+<meta property="article:modified_time" content="2024-10-27T10:39:28.000Z">
+<meta property="article:author" content="Codcer">
+<meta property="article:tag" content="跨端开发">
+<meta property="article:tag" content="uni-app">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>
+       
+        7.使用uni-app开发顺序建议 | 前端全栈! - WEB BANG! BANG!! BANG!!!
+      
+    </title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2024/10/26/uni-app/6.uni-app%E4%B9%8Btui%E6%94%AF%E6%8C%81vue3%E5%86%99%E6%B3%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&text=7.使用uni-app开发顺序建议"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&is_video=false&description=7.使用uni-app开发顺序建议"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=7.使用uni-app开发顺序建议&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&name=7.使用uni-app开发顺序建议&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&t=7.使用uni-app开发顺序建议"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E6%9C%80%E5%B0%8F%E6%88%90%E6%9C%AC%E5%BC%80%E5%8F%91uni-app%E5%90%84%E7%AB%AF"><span class="toc-number">1.</span> <span class="toc-text">以最小成本开发uni-app各端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E9%9A%BE%E5%BA%A6%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">开发难度排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%BF%AB%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">关于快应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eapp"><span class="toc-number">2.2.</span> <span class="toc-text">关于app</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.3.</span> <span class="toc-text">关于 微信小程序</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        7.使用uni-app开发顺序建议
+    </h1>
+
+
+
+    <div class="meta">
+      <!-- <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Liu</span>
+      </span> -->
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-26T09:21:36.000Z" itemprop="datePublished">2024-10-26</time>
+        
+      
+    </div>
+
+
+      <!-- 文章阅读数 -->
+      <div class="article-tag">
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_container_page_pv">
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+      </div>
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/uni-app/" rel="tag">uni-app</a>, <a class="tag-link-link" href="/tags/%E8%B7%A8%E7%AB%AF%E5%BC%80%E5%8F%91/" rel="tag">跨端开发</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="以最小成本开发uni-app各端"><a href="#以最小成本开发uni-app各端" class="headerlink" title="以最小成本开发uni-app各端"></a>以最小成本开发uni-app各端</h2><p>现在公司里面的所有小程序,快应用,app等等都在使用uni-app在开发.</p>
+<p>如果只兼容一端的话,使用uni-app开发,没有任何问题.</p>
+<p>但是又想一次开发,各端正常运行的话,在很多的细节上是要花一点心思的.</p>
+<p>每一端有每一端的难.</p>
+<h2 id="开发难度排序"><a href="#开发难度排序" class="headerlink" title="开发难度排序"></a>开发难度排序</h2><p>快应用  &gt; app &gt; 微信小程序 &gt; H5 【兼容性从左至右】</p>
+<h3 id="关于快应用"><a href="#关于快应用" class="headerlink" title="关于快应用"></a>关于快应用</h3><p>在开发过程中,如果有涉及到快应用的业务,建议优先开发快应用.</p>
+<p>快应用的布局标准跟js容器环境跟其他的小程序或者是H5有一定的差异.</p>
+<p>并且华为快应用与其他快应用有很多莫名其妙的差异.</p>
+<p>如果涉及到快应用,请谨慎对待开发时间.</p>
+<p>目前看来,快应用的对UI布局的支持与小程序有一定的差异.虽然使用uni-app的样式区分,快应用与小程序确实可以使用一套同样的代码同时跑在两端上.</p>
+<p>但是在开发过程中,他们之间的差异有太多意想不到(快应用不符合W3C规范)的差异,建议UI布局相关的代码,各端单独布局.业务相关的可以使用一套代码. 就是布局样式独立,行为保持一致.</p>
+<p>不然会花掉太多的布局差异抹平的工作.</p>
+<h3 id="关于app"><a href="#关于app" class="headerlink" title="关于app"></a>关于app</h3><p>目前uni-app封装的app的特性与小程序是非常接近的,<br>如果不过多调用太多冷门的API,基本上还是可以独立开发完成大部分UI编程.</p>
+<p>如果想要调用原生APP的组件,在目前开来会带来相当大的沟通成本.</p>
+<p>在开发中本身ios与安卓就有一定的特性差异,放到里app实现后又会带来其他的差异.</p>
+<p>并且开发人员从一个人变成了三个人.</p>
+<p>如果桥接的组件太过于复杂,开发人员可能会有一种还不如自己独立开发的抱怨.</p>
+<p>这个时候多端一起开发,时间不一定会比独立开发要快.</p>
+<h3 id="关于-微信小程序"><a href="#关于-微信小程序" class="headerlink" title="关于 微信小程序"></a>关于 微信小程序</h3><p>目前开发中,IDE的卡顿是小程序最不好的开发体验.</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        
+        
+            <div class="vcomment"></div>
+        
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E6%9C%80%E5%B0%8F%E6%88%90%E6%9C%AC%E5%BC%80%E5%8F%91uni-app%E5%90%84%E7%AB%AF"><span class="toc-number">1.</span> <span class="toc-text">以最小成本开发uni-app各端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E9%9A%BE%E5%BA%A6%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">开发难度排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%BF%AB%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">关于快应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eapp"><span class="toc-number">2.2.</span> <span class="toc-text">关于app</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.3.</span> <span class="toc-text">关于 微信小程序</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&text=7.使用uni-app开发顺序建议"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&is_video=false&description=7.使用uni-app开发顺序建议"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=7.使用uni-app开发顺序建议&body=Check out this article: https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&title=7.使用uni-app开发顺序建议"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&name=7.使用uni-app开发顺序建议&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/10/26/uni-app/7.%E4%BD%BF%E7%94%A8uni-app%E5%BC%80%E5%8F%91%E9%A1%BA%E5%BA%8F%E5%BB%BA%E8%AE%AE/&t=7.使用uni-app开发顺序建议"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    Codcer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+
+<!-- Valine Comments -->
+
+  
+<script src="/js/av-min.js"></script>
+
+  
+<script src="/js/Valine.min.js"></script>
+
+  <script type="text/javascript">
+      var notify = 'false' == true ? true : false;
+      var verify = 'false' == true ? true : false;
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+      });
+      guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "nRach5vXbSulMeiRHgqCbUCT-gzGzoHsz",
+          appKey: "CK2vLdlylRq40EiH2lu4lU2H",
+          avatar:"mm",
+          placeholder: "说点什么",
+          guest_info:guest_info,
+          pageSize:"10"
+      })
+  </script>
+
+
+<!-- 阅读量计数 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
