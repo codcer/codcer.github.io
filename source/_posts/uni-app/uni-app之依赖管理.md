@@ -1,5 +1,5 @@
 ---
-title: 2.uni-app之依赖管理
+title: uni-app之依赖管理
 tags: [uni-app,跨端开发]
 slug: h8gas5c
 keywords: uni-app,多端同构,多端开发技巧,跨端开发

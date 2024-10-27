@@ -1,5 +1,5 @@
 ---
-title: 6.uni-app之tui支持vue3写法
+title: uni-app之tui支持vue3写法
 tags: [uni-app,跨端开发]
 slug: wwu086as
 keywords: uni-app,多端同构,多端开发技巧,跨端开发

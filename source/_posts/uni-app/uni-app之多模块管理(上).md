@@ -1,5 +1,5 @@
 ---
-title: 3.uni-app之多模块管理(上)
+title: uni-app之多模块管理(上)
 tags: [uni-app,跨端开发]
 slug: w65034i
 keywords: uni-app,多端同构,多端开发技巧,跨端开发

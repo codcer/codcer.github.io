@@ -1,5 +1,5 @@
 ---
-title: 1.uni-app之思考与举措
+title: uni-app之思考与举措
 tags: [uni-app,跨端开发]
 slug: bjg2z0a
 keywords: uni-app,多端同构,多端开发技巧,跨端开发
