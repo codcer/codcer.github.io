@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="快速入门Electron集成环境-核心api-消息-打包&#x2F;环境以最快的形式，达到electron入门，此篇基本都是看electron官网精简而来 架构Electron 中有主进程和渲染进程两个重要的概念，在主进程中用 Node 调用 Electron 封装好的 API 来创建窗口，管理应用整个生命周期，而在渲染进程中加载传统的 Web 界面。因此： ● main 目录用于存放跟主进程相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Liu">
+<meta property="og:url" content="https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Liu">
+<meta property="og:description" content="快速入门Electron集成环境-核心api-消息-打包&#x2F;环境以最快的形式，达到electron入门，此篇基本都是看electron官网精简而来 架构Electron 中有主进程和渲染进程两个重要的概念，在主进程中用 Node 调用 Electron 封装好的 API 来创建窗口，管理应用整个生命周期，而在渲染进程中加载传统的 Web 界面。因此： ● main 目录用于存放跟主进程相关">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://codcer.github.io/image-1.png">
+<meta property="article:published_time" content="2024-11-13T15:28:38.943Z">
+<meta property="article:modified_time" content="2024-11-13T15:28:38.943Z">
+<meta property="article:author" content="Codcer">
+<meta property="article:tag" content="前端全栈">
+<meta property="article:tag" content="WEB FULL STACK">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="前端博客">
+<meta property="article:tag" content="web前端博客">
+<meta property="article:tag" content="前端模块化">
+<meta property="article:tag" content="前端工程化">
+<meta property="article:tag" content="前端数据监控">
+<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="网页制作">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="html5">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="踩坑小报告">
+<meta property="article:tag" content="微前端">
+<meta property="article:tag" content="树莓派">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="Mongodb">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Angular.js">
+<meta property="article:tag" content="node.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://codcer.github.io/image-1.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>
+       
+        Hello Codcer | 前端全栈! - WEB BANG! BANG!! BANG!!!
+      
+    </title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2024/11/13/electron/electron%E9%9B%86%E6%88%90mvvm/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8Electron"><span class="toc-number">1.</span> <span class="toc-text">快速入门Electron</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Main-Process"><span class="toc-number">1.1.1.</span> <span class="toc-text">Main Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Renderer-Process"><span class="toc-number">1.1.2.</span> <span class="toc-text">Renderer Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">1.1.3.</span> <span class="toc-text">安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.1.4.</span> <span class="toc-text">全局快捷键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E9%94%AE"><span class="toc-number">1.1.5.</span> <span class="toc-text">热键</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <!-- <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Liu</span>
+      </span> -->
+      
+    <div class="postdate">
+      
+        <time datetime="2024-11-13T15:28:38.943Z" itemprop="datePublished">2024-11-13</time>
+        
+      
+    </div>
+
+
+      <!-- 文章阅读数 -->
+      <div class="article-tag">
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_container_page_pv">
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+      </div>
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="快速入门Electron"><a href="#快速入门Electron" class="headerlink" title="快速入门Electron"></a>快速入门Electron</h1><p>集成环境-核心api-消息-打包&#x2F;环境<br>以最快的形式，达到electron入门，此篇基本都是看electron官网精简而来</p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>Electron 中有<code>主进程</code>和<code>渲染进程</code>两个重要的概念，在主进程中用 Node 调用 Electron 封装好的 API 来创建窗口，管理应用整个生命周期，而在渲染进程中加载传统的 Web 界面。因此：</p>
+<pre><code>● main 目录用于存放跟主进程相关的代码
+● preload 目录用于暴露ContextBridge通信的electron 相关api
+● renderer 目录用于存放跟渲染进程相关的代码(chromium多进程结构，每个electron页面独立自己的进程)。
+</code></pre>
+<p>main &lt;-ipc(事件驱动)-&gt; render process(1:n)</p>
+<p>main进程，采用node为开发语言，天生前端的利器<br>render进程，采用当下流行的react或vue框架均可，这个我们做前端的，都会的技能，而且还是<code>精通</code>的那种。【玩笑啦】</p>
+<h3 id="Main-Process"><a href="#Main-Process" class="headerlink" title="Main Process"></a>Main Process</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="comment">// npx nodemon --help</span></span><br><span class="line">        <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nodemon --exec electron .&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nodemon --exec electron . --watch ./ --ext js,html&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/app">app</a> 控制应用程序的事件生命周期</p>
+<ul>
+<li><p>平台都支持</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">will-finish-launching: 应用程序完成基础的启动的时候被触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ready: 当 Electron 完成初始化时，发出一次</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">window-all-closed: 当所有的窗口都被关闭时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">before-quit: 在程序关闭窗口前发信号</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">will-quit: 当所有窗口被关闭后触发，同时应用程序将退出</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">quit: 在应用程序退出时发出</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">browser-window-blur: 当一个 browserWindow 失去焦点时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">browser-window-focus: 当一个 browserWindow 获得焦点时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">browser-window-created：当一个新的 browserWindow 被创建时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">web-contents-created：当一个新的 webContents 被创建时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">certificate-error：当对 url 的 certificate 证书验证失败的时候发出</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">select-client-certificate：当一个客户证书被请求的时候发出。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">login：默认行为是取消所有身份验证。 默认行为是取消所有的验证行为，如果需要重写这个行为，你需要用 event.preventDefault() 来阻止默认行为，并且使用 callback(username, password) 来验证</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">gpu-info-update：每当有 GPU 信息更新时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">child-process-gone：子进程意外消失时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">accessibility-support-changed：当 Chrome 的辅助功能状态改变时触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">session-created：当 Electron创建了一个新的 session后被触发</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">second-instance：当第二个实例被执行并且调用 app.requestSingleInstanceLock() 时，这个事件将在你的应用程序的首个实例中触发</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>仅macos</p>
+</li>
+</ul>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;activate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title class_">BrowserWindow</span>.<span class="title function_">getAllWindows</span>().<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="title function_">createWindow</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>ipcMain 从主进程到渲染进程的异步通信</p>
+<p> <code>on once removeListener removeAllListeners  handle handleOnce removeHandler</code> 与 <code>ipcRenderer</code>对应的配套组合</p>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.ts</span></span><br><span class="line">ipcMain.<span class="title function_">handle</span>(<span class="string">&#x27;my-invokable-ipc&#x27;</span>, <span class="title function_">async</span> (event, ...args) =&gt; &#123;</span><br><span class="line">    <span class="comment">// event.reply(eventName, data);</span></span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">somePromise</span>(...args)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue|react</span></span><br><span class="line"><span class="title function_">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> ipcRenderer.<span class="property">invoke</span> (<span class="string">&#x27;my-invokable-ipc&#x27;</span>, arg1, arg2)</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>BrowserWindow<br>它是一个构造器，创建并控制浏览器窗口。 <a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/browser-window#new-browserwindowoptions">options配置</a></p>
+<p> 几个配置，解释下，后面有对配置更深的理解，也会补录进来</p>
+<blockquote>
+<p>webPreferences  </p>
+</blockquote>
+<ul>
+<li><p>nodeIntegration：是否在Web工作器中启用了Node集成，就是说开启这个，前端代码里面，也可以用node相关的操作及api </p>
+</li>
+<li><p>contextIsolation: 是否在独立 JavaScript 环境中运行 Electron API和指定的preload 脚本. 默认为 true, 但是当<code>nodeIntegration</code> 为 <code>true</code>时一般它要设为<code>false</code></p>
+</li>
+</ul>
+</li>
+<li><p>webContents<br>官方解释为渲染以及控制 web 页面；<code>页面上下文</code>，即win下打开了多少这样的页对象面集合</p>
+</li>
+<li><p>消息通道</p>
+<p> 在 Electron 中，进程使用 ipcMain 和 ipcRenderer 模块，通过开发人员定义的“通道”传递消息来进行通信。 </p>
+<p> <img src="/image-1.png" alt="消息模型"></p>
+<ul>
+<li><p>主进程通过 ipcMain.on|handle 监听;</p>
+</li>
+<li><p>渲染进程通过 ipcRenderer.send|invoke 发送消息;</p>
+</li>
+<li><p>主进程到渲染器进程, 消息需要通过WebContents 实例发送到渲染器进程,此 WebContents 实例包含一个 send 方法，其使用方式与 ipcRenderer.send 相同;</p>
+</li>
+<li><p>默认情况下，渲染器进程没有权限访问 Node.js 和 Electron 模块。 作为应用开发者，您需要使用 contextBridge API 来选择要从预加载脚本中暴露哪些 API</p>
+</li>
+<li><p>渲染器进程到渲染器进程, 通过主进程作为代理进行通知.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/ipc">进程通信</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/message-ports">通过消息端口进行进程间的通信</a></p>
+<ol>
+<li>消息端口是成对创建的。 连接的一对消息端口;</li>
+<li>发送到port1 将被port2 接收，反之亦然;</li>
+<li>允许在另一端还没有注册监听器的情况下就通过通道向其发送消息,此时消息将排队等待，直到一个监听器注册为。类似<code>Rx</code>中的<code>cold</code>操作符</li>
+<li>MessagePort 对象可以在渲染器或主 进程中创建，并使用 [ipcRenderer.postMessage][] 和 [WebContents.postMessage][] 方法互相传递。 请注意，通常的 IPC 方法，例如 send 和 invoke 不能用来传输 MessagePort, 只有 postMessage 方法可以传输 MessagePort。</li>
+</ol>
+<p>  通过主进程传递 MessagePort，就可以连接两个可能无法通信的页面 (例如，由于同源限制)</p>
+<p>  <a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/message-ports#%E5%AE%9E%E4%BE%8B%E4%BD%BF%E7%94%A8">示例</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Renderer-Process"><a href="#Renderer-Process" class="headerlink" title="Renderer Process"></a>Renderer Process</h3><ol>
+<li><p>ipcRenderer<br> 从渲染器进程到主进程的异步通信<br> 主要包括的方法：on，off，once，addListener，removeListener，send，invoke，sendSync，postMessage，sendToHost</p>
+<p> sendHost： 就像 ipcRenderer.send，不同的是消息会被发送到 host 页面上的 <webview> 元素，而不是主进程。</p>
+</li>
+<li><p>contextBridge<br> 在隔离的上下文中创建一个安全的、双向的、同步的桥梁。</p>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Preload (Isolated World)</span></span><br><span class="line"><span class="keyword">const</span> &#123; contextBridge, ipcRenderer &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line">contextBridge.<span class="title function_">exposeInMainWorld</span>(</span><br><span class="line">    <span class="string">&#x27;electron&#x27;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">doThing</span>: <span class="function">() =&gt;</span> ipcRenderer.<span class="title function_">send</span>(<span class="string">&#x27;do-a-thing&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// renderer</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">electron</span>.<span class="title function_">doThing</span>()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/security">安全</a></p>
+<h3 id="全局快捷键"><a href="#全局快捷键" class="headerlink" title="全局快捷键"></a>全局快捷键</h3><p>globalShortcut方式register｜unRegister；全屏、缩放；</p>
+<h3 id="热键"><a href="#热键" class="headerlink" title="热键"></a>热键</h3><p>docker 和 menu方式支持热键设置</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        
+        
+            <div class="vcomment"></div>
+        
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8Electron"><span class="toc-number">1.</span> <span class="toc-text">快速入门Electron</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Main-Process"><span class="toc-number">1.1.1.</span> <span class="toc-text">Main Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Renderer-Process"><span class="toc-number">1.1.2.</span> <span class="toc-text">Renderer Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">1.1.3.</span> <span class="toc-text">安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.1.4.</span> <span class="toc-text">全局快捷键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E9%94%AE"><span class="toc-number">1.1.5.</span> <span class="toc-text">热键</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://codcer.github.io/2024/11/13/electron/electron%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    Codcer
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Archives</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/codcer">Github</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+  
+<script src="/lib/typed/typed.min.js"></script>
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+
+<!-- Valine Comments -->
+
+  
+<script src="/js/av-min.js"></script>
+
+  
+<script src="/js/Valine.min.js"></script>
+
+  <script type="text/javascript">
+      var notify = 'false' == true ? true : false;
+      var verify = 'false' == true ? true : false;
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+      });
+      guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "nRach5vXbSulMeiRHgqCbUCT-gzGzoHsz",
+          appKey: "CK2vLdlylRq40EiH2lu4lU2H",
+          avatar:"mm",
+          placeholder: "说点什么",
+          guest_info:guest_info,
+          pageSize:"10"
+      })
+  </script>
+
+
+<!-- 阅读量计数 -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
