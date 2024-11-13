@@ -1,3 +1,11 @@
+---
+title: electron集成mvvm
+tags: [electron]
+slug: ea793fdc
+keywords: electron
+date: 2024-11-13 23:07:34
+---
+
 # 快速入门Electron  
 
 ## 与vue集成
