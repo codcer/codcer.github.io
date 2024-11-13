@@ -111,7 +111,7 @@ render进程，采用当下流行的react或vue框架均可，这个我们做前
 
     在 Electron 中，进程使用 ipcMain 和 ipcRenderer 模块，通过开发人员定义的“通道”传递消息来进行通信。 
 
-    ![消息模型](image-1.png)
+    ![消息模型](/images/image-1.png)
 
     - 主进程通过 ipcMain.on|handle 监听;
     - 渲染进程通过 ipcRenderer.send|invoke 发送消息;
