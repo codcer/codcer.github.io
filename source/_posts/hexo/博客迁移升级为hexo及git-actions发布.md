@@ -144,7 +144,11 @@ date: 2024-10-25 23:07:34
     ```
 
 ## github actions自动化
+   
+    1. 流程：`workflow/job/step/action` 私有仓库并行有限制
 
+    2. 配置：`.github/workflow/*.yml`
+   
     ```yml
     # _config.yml
     # 常用的配置列出
@@ -261,3 +265,5 @@ date: 2024-10-25 23:07:34
             </span>
         </div>
     ```
+
+    3. 触发条件：仓库事件(如分支)、定时、手动、api出发 
